@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: Virtual Try-On API
+  version: 1.0.0
+  description: API for comparing virtual try-on models like Google VTO and Gemini.
+servers:
+  - url: /api
+
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        encodedImage:
+          type: string
+          description: Base64 encoded string of the result image.
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          description: An error message.
+
+paths:
+  /google-vto:
+    post:
+      summary: Perform virtual try-on using Google VTO model
+      description: Takes a person's image and a product image, and returns the try-on result from the Google VTO model.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                encodedPersonImage:
+                  type: string
+                  description: Base64 encoded string of the person's image.
+                encodedProductImage:
+                  type: string
+                  description: Base64 encoded string of the product's image.
+              required:
+                - encodedPersonImage
+                - encodedProductImage
+      responses:
+        '200':
+          description: Successful try-on result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request (e.g., missing parameters).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /gemini-flash-image:
+    post:
+      summary: Perform virtual try-on using Gemini Flash model
+      description: Takes a person's image and a product image, and returns the try-on result from the Gemini model.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                encodedPersonImage:
+                  type: string
+                  description: Base64 encoded string of the person's image.
+                encodedProductImage:
+                  type: string
+                  description: Base64 encoded string of the product's image.
+              required:
+                - encodedPersonImage
+                - encodedProductImage
+      responses:
+        '200':
+          description: Successful try-on result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request (e.g., missing parameters).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

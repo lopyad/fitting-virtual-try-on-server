@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Try-On</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Virtual Try-On</h1>
+    
+    <div class="main-content">
+      <div class="input-section">
+        <div class="upload-section">
+          <div class="upload-area">
+            <label for="person-uploader">Person Image</label>
+            <input type="file" id="person-uploader" class="image-uploader" accept="image/*">
+            <div class="image-preview-container">
+              <img id="person-preview" class="image-preview" src="#" alt="Person preview">
+              <span class="preview-text">Image Preview</span>
+            </div>
+          </div>
+          
+          <div class="upload-area">
+            <label for="product-uploader">Product Image</label>
+            <input type="file" id="product-uploader" class="image-uploader" accept="image/*">
+            <div class="image-preview-container">
+              <img id="product-preview" class="image-preview" src="#" alt="Product preview">
+              <span class="preview-text">Image Preview</span>
+            </div>
+          </div>
+        </div>
+        <div class="api-selector">
+          <label><input type="checkbox" id="vto-checkbox" checked> Google VTO</label>
+          <label><input type="checkbox" id="gemini-checkbox" checked> Gemini Flash Image</label>
+        </div>
+        <button id="generate-btn">Perform Try-On</button>
+      </div>
+      
+      <div class="results-wrapper">
+        <div id="result-vto-section" class="result-section" style="display: none;">
+          <h2>Result (Google VTO)</h2>
+          <p id="result-model-vto"></p>
+          <div id="result-container-vto" class="image-preview-container">
+            <img id="result-image-vto" class="image-preview" src="#" alt="Result from VTO">
+            <span class="preview-text">Result will be shown here</span>
+          </div>
+        </div>
+
+        <div id="result-gemini-section" class="result-section" style="display: none;">
+          <h2>Result (Gemini Flash)</h2>
+          <p id="result-model-gemini"></p>
+          <div id="result-container-gemini" class="image-preview-container">
+            <img id="result-image-gemini" class="image-preview" src="#" alt="Result from Gemini">
+            <span class="preview-text">Result will be shown here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="/js/main.js"></script>
+</body>
+</html>
