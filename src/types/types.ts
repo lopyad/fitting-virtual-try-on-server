@@ -9,3 +9,13 @@ export interface encodedImageResponse {
   success: boolean;
   encodedImage: string;
 }
+
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: 'tops' | 'bottoms';
+  images: string[];
+  stock: number;
+}

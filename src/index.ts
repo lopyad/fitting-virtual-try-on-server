@@ -11,8 +11,3 @@ const controller = new Controller(service);
 
 startServer(controller);
 
-// try{
-//     repository.vertexApi.generateContent();
-// } catch(e){
-//     console.log(e);
-// }
