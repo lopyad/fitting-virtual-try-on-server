@@ -186,3 +186,42 @@ h1 {
   margin-bottom: 0.5rem;
   height: 1.2em;
 }
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .main-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .input-section, .results-wrapper {
+    max-width: 100%;
+  }
+
+  .upload-section {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .product-item img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .api-selector {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
