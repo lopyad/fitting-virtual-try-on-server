@@ -9,6 +9,13 @@
 <body>
   <div class="container">
     <h1>Virtual Try-On</h1>
+
+    <div class="product-gallery">
+      <h2>Tops</h2>
+      <div id="tops-container" class="product-list"></div>
+      <h2>Bottoms</h2>
+      <div id="bottoms-container" class="product-list"></div>
+    </div>
     
     <div class="main-content">
       <div class="input-section">
@@ -17,8 +24,8 @@
             <label for="person-uploader">Person Image</label>
             <input type="file" id="person-uploader" class="image-uploader" accept="image/*">
             <div class="image-preview-container">
-              <img id="person-preview" class="image-preview" src="#" alt="Person preview">
-              <span class="preview-text">Image Preview</span>
+              <img id="person-preview" class="image-preview" src="/images/persons/example.jpg" alt="Person preview">
+              <span class="preview-text" style="display: none;">Image Preview</span>
             </div>
           </div>
           

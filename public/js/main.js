@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Product gallery elements
+  const topsContainer = document.getElementById('tops-container');
+  const bottomsContainer = document.getElementById('bottoms-container');
+
   // Input elements
   const personUploader = document.getElementById('person-uploader');
   const productUploader = document.getElementById('product-uploader');
@@ -24,6 +28,66 @@ document.addEventListener('DOMContentLoaded', () => {
   let encodedPersonImage = '';
   let encodedProductImage = '';
 
+  // --- Image Loading Logic ---
+  const loadAndEncodeImage = async (imageUrl, previewElement) => {
+    return new Promise((resolve, reject) => {
+      previewElement.src = imageUrl;
+      previewElement.style.display = 'block';
+      previewElement.parentElement.querySelector('.preview-text').style.display = 'none';
+
+      fetch(imageUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const base64 = e.target.result.split(',')[1];
+            resolve(base64);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        })
+        .catch(reject);
+    });
+  };
+
+  // --- Product Gallery Logic ---
+  const fetchAndDisplayProducts = async () => {
+    try {
+      const response = await fetch('/api/images');
+      const data = await response.json();
+
+      if (data.success && data.products) {
+        topsContainer.innerHTML = '';
+        bottomsContainer.innerHTML = '';
+
+        data.products.forEach(product => {
+          const productItem = document.createElement('div');
+          productItem.className = 'product-item';
+          
+          const img = document.createElement('img');
+          const imageUrl = product.images[0];
+          img.src = imageUrl;
+          img.alt = product.name;
+          
+          productItem.appendChild(img);
+
+          productItem.addEventListener('click', async () => {
+            encodedProductImage = await loadAndEncodeImage(imageUrl, productPreview);
+          });
+
+          if (product.category === 'tops') {
+            topsContainer.appendChild(productItem);
+          } else if (product.category === 'bottoms') {
+            bottomsContainer.appendChild(productItem);
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
+    }
+  };
+
+  // --- Virtual Try-On Logic ---
   const handleFileChange = (event, preview, onImageEncoded) => {
     const file = event.target.files[0];
     if (file) {
@@ -115,4 +179,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     await Promise.all(requests);
   });
+
+  // --- Initial Load ---
+  const initialize = async () => {
+    if (!personUploader.files || personUploader.files.length === 0) {
+      encodedPersonImage = await loadAndEncodeImage('/images/persons/example.jpg', personPreview);
+    }
+    await fetchAndDisplayProducts();
+  };
+
+  initialize();
 });

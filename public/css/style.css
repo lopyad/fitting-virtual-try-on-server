@@ -20,6 +20,45 @@ h1 {
   text-align: center;
 }
 
+/* Product Gallery Styles */
+.product-gallery {
+  margin-bottom: 3rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 2rem;
+}
+
+.product-gallery h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.product-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.product-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+}
+
+.product-item img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+/* End of Product Gallery Styles */
+
 .main-content {
   display: flex;
   flex-direction: row; /* Input on left, results on right */

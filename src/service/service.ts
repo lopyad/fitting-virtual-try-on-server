@@ -1,9 +1,14 @@
 import { ApiError } from '../types/errors/error';
 import Repository from '../repository/repository';
 import * as fs from 'fs';
+import { Product } from '../types/types';
 
 export default class Service {
   constructor(private readonly repository: Repository){}
+
+  async getAllProducts(): Promise<Product[]> {
+    return this.repository.product.findAll();
+  }
 
   async performTryOn(encodedUserImage: string, encodedProductImage: string): Promise<string> {
     try{

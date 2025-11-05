@@ -58,6 +58,7 @@ export function startServer(controller: Controller) {
 function createRouter(controller: Controller): Router{
     const router = Router();
 
+    router.get("/images", controller.getProducts.bind(controller));
     router.post("/google-vto", controller.perfromTryOnGoogleVto.bind(controller));
     router.post("/gemini-flash-image", controller.perfromTryOnByGeminiFlashImage.bind(controller));
 
